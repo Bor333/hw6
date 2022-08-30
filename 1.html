@@ -56,10 +56,13 @@
   3. При клике на кнопку "В корзину" название кнопки должно поменяться на
   "Добавлено" и кнопка должна стать неактивной.
    */
-  const cartButtonEl = document.querySelector('button');
-  cartButtonEl.addEventListener('click', event => {
-    cartButtonEl.innerText = "Добавлено";
-  });
+  const cartButtonEls = document.querySelectorAll('button');
+  for (let i = 0; i < cartButtonEls.length; i++) {
+    cartButtonEls[i].addEventListener('click', () => {
+      cartButtonEls[i].innerText = "Добавлено";
+      cartButtonEls[i].disabled = true;
+    });
+  }
   /*
   4. Создайте полную (глубокую) копию элемента с классом product, измените в
   этой копии путь до картинки на:
@@ -68,12 +71,19 @@
   отображенный товар на странице на созданную копию. У данной копии также
   должен правильно работать код из 3-го задания.
    */
-
+  const productEl = document.querySelector('.product');
+  const productElClone =  productEl.cloneNode(true);
+  productElClone.querySelector('img').src = "https://picsum.photos/id/1080/200/300";
+  productElClone.querySelector('.productName').textContent = "Товар 4";
+  document.querySelector('.product:last-of-type').replaceWith(productElClone);
 
   /*
   5. По истечении 2 секунд с момента открытия страницы первый товар должен быть
   удален из html.
    */
+  const firstEl = document.querySelector('.product:first-of-type');
+
+  setTimeout(() => firstEl.remove(), 2000 );
 
 
 </script>
